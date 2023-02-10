@@ -8,6 +8,7 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
 } from "reactflow";
+import * as Toolbar from "@radix-ui/react-toolbar";
 import { zinc } from "tailwindcss/colors";
 import "reactflow/dist/style.css";
 import { Square } from "./components/nodes/Square";
@@ -53,6 +54,21 @@ function App() {
     []
   );
 
+  function addSquareNode() {
+    setNodes((currNodes) => [
+      ...currNodes,
+      {
+        id: crypto.randomUUID(),
+        type: "square",
+        data: {},
+        position: {
+          x: 750,
+          y: 350,
+        },
+      },
+    ]);
+  }
+
   return (
     <div className="w-screen h-screen">
       <ReactFlow
@@ -70,6 +86,13 @@ function App() {
 
         <Controls />
       </ReactFlow>
+
+      <Toolbar.Root className="fixed bottom-20 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-lg border border-zinc-300 px-8 h-20 w-96 overflow-hidden">
+        <Toolbar.Button
+          className="w-32 h-32 bg-violet-500 mt-6 rounded transition-transform hover:-translate-y-2"
+          onClick={addSquareNode}
+        />
+      </Toolbar.Root>
     </div>
   );
 }
